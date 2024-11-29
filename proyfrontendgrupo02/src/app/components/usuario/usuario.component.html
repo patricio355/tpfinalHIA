@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <h2>Gestion de Usuarios</h2>
+
+  <div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
+      <thead>
+        <div class="btn-group" *ngIf="tipoLogged() == 'administrador'">
+          <button type="button" class="btn btn-danger mb-2" (click)="agregarUsuario()">Agregar Usuario <i class="fa-solid fa-plus"></i></button>
+          <button type="button" class="btn btn-primary mx-2 mb-2" (click)="generarExcel()">Generar Excel <i class="fa-solid fa-file-excel"></i></button>
+          <br>
+        </div>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Email</th>
+          <th scope="col">DNI</th>
+          <th scope="col">Edad</th>
+          <th scope="col">Tipo de Usuario</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of listUsuario">
+          <td>{{usuario.nombre}}</td>
+          <td>{{usuario.apellido}}</td>
+          <td>{{usuario.email}}</td>
+          <td>{{usuario.dniUsuario}}</td>
+          <td>{{usuario.edadUsuario}}</td>
+          <td>{{usuario.tipoUsuario}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" style="margin-right: 10px" routerLink="/usuario-form/:id"
+              (click)="modificarUsuario(usuario._id)"><i class="fa-solid fa-pencil"></i></button>
+            <button type="button" class="btn btn-danger" (click)="eliminarUsuario(usuario._id)"><i
+                class="fa-sharp fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br>
+</div>

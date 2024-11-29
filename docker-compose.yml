@@ -1,0 +1,58 @@
+version: "3.9"
+services:
+  frontend:
+    build:
+      context: ./proyfrontendgrupo02
+    container_name: frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    networks:
+      - red-hia
+
+  backend:
+    build:
+      context: ./proybackendgrupo02
+    container_name: backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    networks:
+      - red-hia
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/proyfinalgrupo02
+    restart: always
+    command: ["node", "index.js"]
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - red-hia
+    volumes:
+      - mongodb_data:/data/db
+
+  db-client:
+    image: mongo-express:latest
+    container_name: db-client
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+    networks:
+      - red-hia
+
+networks:
+  red-hia:
+    external: true
+
+volumes:
+  mongodb_data:

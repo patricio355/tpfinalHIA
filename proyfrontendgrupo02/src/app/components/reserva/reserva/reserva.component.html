@@ -1,0 +1,68 @@
+<div *ngIf="tipoLogged() == 'gestor' || tipoLogged() ==  ('administrador')">
+<div class="container-fluid">
+  <div class="container">
+    <h2>Gestion de reservas </h2>
+    <button type="button" class="btn btn-primary" (click)="nuevaReserva()" >Agregar Reserva <i class="fa-solid fa-plus"></i></button>
+    <div class="table table-responsive" style="max-width: 1300px;">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped" style="max-width: 100%;">
+        <thead>
+          <tr>
+            <th scope="col">Numero de mesa</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Cantidad de mesas</th>
+            <th scope="col">Cantidad de sillas</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora </th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reserva of reservas">
+            <td>#{{reserva.numeroMesa}}</td>
+            <td>{{reserva.usuario}}</td>
+            <td>{{reserva.cantidadMesa}}</td>
+            <td>{{reserva.cantidadSilla}}</td>
+            <td>{{reserva.fecha | date:'dd-MM-yyyy'}}</td>
+            <td>{{reserva.hora}}</td>
+            <td>
+                <button type="button" class="btn btn-secondary me-2" (click)="modificarReserva(reserva)" >
+                  <i class="fa-solid fa-pencil"></i>
+                </button>
+
+                
+                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="abrirModalEliminar(reserva)" >
+        
+<!--
+
+                 <button type="button" class="btn btn-danger" (click)="eliminarReserva(reserva)" >
+
+-->
+                 <i class="fa-sharp fa-solid fa-trash"></i>
+                 </button>
+                    </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">ELIMINAR RESERVA</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Estas seguro que desea eliminar la reserva?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="eliminarReserva(reservaEliminar)">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

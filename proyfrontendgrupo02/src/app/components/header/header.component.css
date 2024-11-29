@@ -1,0 +1,49 @@
+.nav-link.active {
+    background-color: #f5e7aa; /* Estilo de fondo para la opción activa */
+    color: #251a21; /* Color de texto para la opción activa */
+}
+.dropdown-menu{
+  background-color: #251a21;
+}
+.dropdown-menu a.dropdown-item:hover {
+  background-color: #251a21; /* Cambia este valor al color oscuro deseado */
+  color: #fff; /* Cambia este valor al color de texto deseado */
+}
+
+.nav-link.dropdown-toggle:hover,.nav-link.dropdown:hover{
+  background-color: #50454c;
+}
+/*
+Naranja:  #fa6816
+Amarillo: #f5e7aa
+Verde: #7fa38c
+Marron Clarito:  #494144
+Marron: #251a21
+*/
+/* Estilos generales del header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #251a21;
+}
+
+/* Estilos para los elementos del header */
+header a {
+  color: #f5e7aa;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+header a:hover {
+  color: #f1eedf;
+}
+
+header .active a {
+  font-weight: bold;
+}
+
+button{
+  background-color: #ceb857;;
+}

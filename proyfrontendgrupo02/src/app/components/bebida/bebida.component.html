@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <h2>Gestion de Bebidas</h2>
+  <br>
+
+  <div class="table-responsive ">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
+      <thead>
+        <div class="btn-group">
+
+          <button type="button" class="btn btn-primary " (click)="nuevoBebida()"  *ngIf="tipoLogged() == 'administrador' || tipoLogged() == 'gestor'">Agregar Bebida</button>
+
+          <div *ngIf="tipoLogged() == 'administrador'">
+            <button type="button" class="btn btn-success" (click)="generarExcel()">Generar Excel <i class="fa-solid fa-file-excel"></i></button>
+          </div>
+          <br>
+        </div>
+        <tr>
+          <th scope="col-2">Nombre</th>
+          <th scope="col-2">Ingredientes</th>
+          <th scope="col-2">Tipo de Vaso</th>
+          <th scope="col-2">Disponibilidad</th>
+          <th scope="col-2">Precio</th>
+          <th scope="col-2">Imagen</th>
+          <th scope="col-1">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bebida of listaBebida" class="bebida">
+          <td class="col-2 ">{{bebida.nombreBebida}}</td>
+          <td class="col-2 ">{{bebida.ingredientesBebida}}</td>
+          <td class="col-2 ">{{bebida.tipoVasoBebida}}</td>
+          <td class="col-2 ">
+            <button *ngIf="bebida.disponibilidadBebida==true" (click)="cambiarEstadoBebida(bebida)"
+              class="btn btn-success btn-lg rounded-pill btn-block me-2 mt-5">
+              Disponible
+            </button>
+            <button *ngIf="bebida.disponibilidadBebida==false" (click)="cambiarEstadoBebida(bebida)"
+              class="btn btn-danger btn-lg rounded-pill btn-block me-2 mt-5">
+              No Disponible
+            </button>
+          </td>
+          <td class="col-2">$ {{bebida.precioBebida}}</td>
+          <td class="col-2">
+            <img [src]="bebida.imagenBebida" class="img-thumbnail" style="max-width: 150px" alt="Aca una imagen" />
+          </td>
+          <td class="col-1">
+            <div class="d-flex">
+              <button type="button" class="btn btn-primary btn-lg btn-block me-2 mt-5"
+                (click)="actualizarBebida(bebida)">
+                <i class="fa-solid fa-pencil"></i> Actualizar
+              </button>
+              
+              <button type="button" class="btn btn-danger btn-lg btn-block mt-5" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="seleccionarBebida(bebida)">
+                <i class="fa-sharp fa-solid fa-trash"></i> Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Bebida</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       Se borrara todas las promociones asociadas con esta bebida...
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-danger btn-lg btn-block "(click)="eliminarBebida(bebidaSeleccionada)" data-bs-dismiss="modal">Eliminar</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block " data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
